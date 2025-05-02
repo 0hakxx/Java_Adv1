@@ -5,9 +5,9 @@ import static util.ThreadUtils.sleep;
 
 public class JoinTest2Main {
     public static void main(String[] args) throws InterruptedException {
-        Thread t1 = new Thread(new MyTask(), "t1");
-        Thread t2 = new Thread(new MyTask(), "t2");
-        Thread t3 = new Thread(new MyTask(), "t3");
+        Thread t1 = new Thread(new JoinTest1Main.MyTask(), "t1");
+        Thread t2 = new Thread(new JoinTest1Main.MyTask(), "t2");
+        Thread t3 = new Thread(new JoinTest1Main.MyTask(), "t3");
 
         t1.start();
         t2.start();
