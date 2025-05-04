@@ -12,7 +12,7 @@ public class BankAccountV2 implements BankAccount {
     }
 
     @Override
-    public synchronized boolean withdraw(int amount) {
+    public synchronized boolean withdraw(int amount) { //sysnchronized 키워드를 사용하여, 하나의 스레드만 메서드에 접근하도록 설정
         log("거래 시작: " + getClass().getSimpleName());
 
         log("[검증 시작] 출금액: " + amount + ", 잔액: " + balance);
@@ -32,7 +32,7 @@ public class BankAccountV2 implements BankAccount {
     }
 
     @Override
-    public synchronized int getBalance() {
+    public synchronized int getBalance() { //sysnchronized 키워드를 사용하여, 하나의 스레드만 메서드에 접근하도록 설정
         return balance;
     }
 }

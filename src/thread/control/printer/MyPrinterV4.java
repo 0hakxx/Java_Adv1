@@ -25,14 +25,18 @@ public class MyPrinterV4 {
         }
     }
 
+    // 프린터 역할을 하는 Runnable 구현 클래스
     static class Printer implements Runnable {
         Queue<String> jobQueue = new ConcurrentLinkedQueue<>();
 
         @Override
         public void run() {
             while (!Thread.interrupted()) {
+                // [중요] 작업 큐가 비어있으면
                 if (jobQueue.isEmpty()) {
-                    Thread.yield(); // 추가
+                    Thread.yield(); // [V3와의 차이] V4에서는 yield() 추가!
+                    // [설명] V3는 단순히 continue만 했으나, V4는 yield()를 호출하여 CPU 양보
+                    // [장점] 불필요하게 CPU를 점유하지 않고, 다른 스레드(예: 입력 대기 중인 메인 스레드)에게 실행 기회를 줌
                     continue;
                 }
 

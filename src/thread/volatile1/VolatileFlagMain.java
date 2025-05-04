@@ -19,8 +19,8 @@ public class VolatileFlagMain {
     }
 
     static class MyTask implements Runnable {
-        //boolean runFlag = true;
-        volatile boolean runFlag = true;
+        //boolean runFlag = true; // [설명] volatile 키워드가 없으면 스레드 간 가시성 문제가 발생하여, 메인 스레드가 종료되어도, work 스레드는 종료되지 않음
+        volatile boolean runFlag = true; // [중요] volatile로 선언, 모든 스레드가 즉시 최신 값을 읽음
 
         @Override
         public void run() {
