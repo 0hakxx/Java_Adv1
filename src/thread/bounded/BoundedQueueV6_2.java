@@ -5,6 +5,9 @@ import java.util.concurrent.BlockingQueue;
 
 import static util.MyLogger.log;
 
+/*
+BoundedQueueV1과 동일한 코드
+* */
 public class BoundedQueueV6_2 implements BoundedQueue {
 
     private BlockingQueue<String> queue;

@@ -21,12 +21,18 @@ public class BankAccountV6 implements BankAccount {
     public boolean withdraw(int amount) {
         log("거래 시작: " + getClass().getSimpleName());
 
+        // [V5 vs V6 핵심 차이점]
+        // V5: lock.tryLock() → 락을 즉시 획득 시도, 실패 시 바로 false 반환 (Non-blocking)
+        // V6: lock.tryLock(timeout, TimeUnit) → 지정한 시간(여기선 500ms) 동안 락을 기다렸다가,
+        //      그 시간 내에 락을 못 얻으면 false 반환 (Timed blocking)
+        //      즉, 락이 잠깐만 점유 중이면 기다렸다가 획득 가능, 오래 점유 중이면 실패 처리
         try {
-            if (!lock.tryLock(500, TimeUnit.MILLISECONDS)) {
+            if (!lock.tryLock(500, TimeUnit.MILLISECONDS)) { // 500ms 대기 후 실패 처리
                 log("[진입 실패] 이미 처리중인 작업이 있습니다.");
                 return false;
             }
         } catch (InterruptedException e) {
+            // 락 대기 중 인터럽트가 발생하면 런타임 예외로 래핑해서 던짐
             throw new RuntimeException(e);
         }
 
